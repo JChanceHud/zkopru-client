@@ -1,0 +1,19 @@
+version: "3"
+
+services:
+  coordinator:
+    build:
+      context: .
+      dockerfile: ./coordinator/Dockerfile
+    ports:
+      - "8888:8888"
+    depends_on:
+      - postgres
+    environment:
+      POSTGRES_URL: postgresql://postgres:password@postgres:5432/zkopru
+      POSTGRES_PASSWORD: password
+  postgres:
+    image: postgres:13
+    environment:
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: zkopru
