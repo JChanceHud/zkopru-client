@@ -20,14 +20,19 @@ const Web3 = require('web3')
 })()
 
 async function generateEnv() {
+  const emptyConfigPath = path.join(process.cwd(), 'coordinator.rinkeby.empty.json')
   const configPath = path.join(process.cwd(), 'coordinator.rinkeby.json')
-  const _data = fs.readFileSync(configPath)
-  const data = JSON.parse(_data)
-  if (data.keystore && data.password && data.websocket) {
-    // already configured
-    console.log('Wallet detected, skipping configuration')
-    return
-  }
+  try {
+    const _data = fs.readFileSync(configPath)
+    const data = JSON.parse(_data)
+    if (data.keystore && data.password && data.websocket) {
+      // already configured
+      console.log('Wallet detected, skipping configuration')
+      return
+    }
+  } catch (__) {}
+  const _emptyData = fs.readFileSync(emptyConfigPath)
+  const emptyData = JSON.parse(_emptyData)
   let websocket, err
   do {
     websocket = await readInput('Rinkeby node websocket url: ')
@@ -38,7 +43,7 @@ async function generateEnv() {
 
   const keystore = await generateKeystore(null, password)
   const final = JSON.stringify({
-    ...data,
+    ...emptyData,
     websocket,
     keystore,
     password,

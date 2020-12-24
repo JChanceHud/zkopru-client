@@ -4,3 +4,5 @@
 keys
 keys.tgz
 node_modules
+coordinator.rinkeby.json
+*.bak

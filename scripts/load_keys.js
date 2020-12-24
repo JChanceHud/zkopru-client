@@ -2,9 +2,9 @@ const fs = require('fs-extra')
 const path = require('path')
 const tar = require('tar')
 const { Docker } = require('node-docker-api')
+const crypto = require('crypto')
 
 const { IMAGE_NAME } = process.env
-const CONTAINER_NAME = 'zkopru_build_circuits'
 
 ;(async () => {
   try {
@@ -22,15 +22,10 @@ async function loadCircuits() {
   const docker = new Docker({
     socketPath: '/var/run/docker.sock',
   })
-  let container
-  try {
-    container = await docker.container.create({
-      name: CONTAINER_NAME,
-      Image: IMAGE_NAME,
-    })
-  } catch (err) {
-    container = docker.container.get(CONTAINER_NAME)
-  }
+  const container = await docker.container.create({
+    name: crypto.randomBytes(8).toString('hex'),
+    Image: IMAGE_NAME,
+  })
   const nIn = [1, 2, 3, 4]
   const nOut = [1, 2, 3, 4]
   const keyPath = path.join(path.dirname(__filename), '../keys')

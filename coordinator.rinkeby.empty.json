@@ -1,0 +1,11 @@
+{
+  "_": [],
+  "bootstrap": true,
+  "postgres": "postgresql://postgres:password@postgres:5432/zkopru",
+  "address": "0xd1C0bA263CdA83DAA61157843Fb4e2c4894c4d61",
+  "db": "db",
+  "maxBytes": 131072,
+  "priceMultiplier": 48,
+  "port": 8888,
+  "$0": "zkopru-coordinator"
+}
