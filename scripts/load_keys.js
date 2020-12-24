@@ -4,7 +4,11 @@ const tar = require('tar')
 const { Docker } = require('node-docker-api')
 const crypto = require('crypto')
 
-const { IMAGE_NAME } = process.env
+const [ bin, script, IMAGE_NAME ] = process.argv
+if (!IMAGE_NAME) {
+  console.log('Usage: load_keys <org/image:tag>')
+  process.exit(1)
+}
 
 ;(async () => {
   try {

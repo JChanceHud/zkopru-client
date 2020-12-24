@@ -6,8 +6,7 @@
   "scripts": {
     "start": "npm run create-account && npm run keys && docker-compose up --build",
     "create-account": "node scripts/create_account",
-    "keys": "export IMAGE_NAME=zkoprunet/circuits:feat-113 npm run pull && node scripts/load_keys",
-    "pull": "docker pull $IMAGE_NAME",
+    "keys": "sh scripts/pull_extract.sh",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
