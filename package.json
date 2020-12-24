@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "npm run keys && docker-compose up --build",
+    "start": "npm run keys && docker-compose up --build --force-recreate",
     "keys": "export IMAGE_NAME=zkoprunet/circuits:feat-113 npm run pull && node load_keys",
     "pull": "docker pull $IMAGE_NAME",
     "test": "echo \"Error: no test specified\" && exit 1"
