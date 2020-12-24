@@ -5,15 +5,17 @@
   "main": "index.js",
   "scripts": {
     "start": "npm run keys && docker-compose up --build --force-recreate",
-    "keys": "export IMAGE_NAME=zkoprunet/circuits:feat-113 npm run pull && node load_keys",
+    "keys": "export IMAGE_NAME=zkoprunet/circuits:feat-113 npm run pull && node scripts/load_keys",
     "pull": "docker pull $IMAGE_NAME",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "GPL-3.0-or-later",
   "dependencies": {
+    "ethereum-keystore": "0.0.3",
     "fs-extra": "^9.0.1",
     "node-docker-api": "^1.1.22",
-    "tar": "^6.0.5"
+    "tar": "^6.0.5",
+    "web3": "^1.3.1"
   }
 }

@@ -1,38 +1,11 @@
 {
   "_": [],
   "bootstrap": true,
-  "b": true,
-  "websocket": "ws://192.168.1.199:8546",
-  "ws": "ws://192.168.1.199:8546",
   "postgres": "postgresql://postgres:password@postgres:5432/zkopru",
   "address": "0xd1C0bA263CdA83DAA61157843Fb4e2c4894c4d61",
-  "a": "0xd1C0bA263CdA83DAA61157843Fb4e2c4894c4d61",
   "db": "db",
   "maxBytes": 131072,
-  "max-bytes": 131072,
   "priceMultiplier": 48,
-  "price-multiplier": 48,
   "port": 8888,
-  "$0": "zkopru-coordinator",
-  "keystore": {
-    "address": "0334e63db3430e137b39811a8a45c43ad27421bc",
-    "crypto": {
-      "cipher": "aes-128-ctr",
-      "ciphertext": "775d396b2ded4810b2fbb5d0fc53313648763328662e3eff6063b0350c75e83d",
-      "cipherparams": {
-        "iv": "c5ad262fc3f7533ebf3c952349bc8aa2"
-      },
-      "mac": "b667e54b191c5beeadb75e85ede1f1e1879eafeeb86b09f1a93f92f74bf2d36e",
-      "kdf": "pbkdf2",
-      "kdfparams": {
-        "c": 100000,
-        "dklen": 32,
-        "prf": "hmac-sha256",
-        "salt": "18edaa8927f65acfc8e481cfe0eb5278c83f20a6a0542a67966d4e20cc6bd923"
-      }
-    },
-    "id": "dbe122a2-0c0f-46c8-bccd-f42ee43a1561",
-    "version": 3
-  },
-  "password": "password"
+  "$0": "zkopru-coordinator"
 }
