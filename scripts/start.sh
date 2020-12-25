@@ -2,8 +2,6 @@
 
 set -e
 
-trap 'exit 1' INT
-
 node scripts/create_account
 
 # get the keys

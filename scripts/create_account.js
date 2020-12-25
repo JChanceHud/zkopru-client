@@ -19,6 +19,13 @@ const Web3 = require('web3')
   }
 })()
 
+function terminate() {
+  console.log('\n\nAborting...\n')
+  process.exit(1)
+}
+process.on('SIGINT', terminate)
+process.on('SIGTERM', terminate)
+
 async function generateEnv() {
   const emptyConfigPath = path.join(process.cwd(), 'coordinator.rinkeby.empty.json')
   const configPath = path.join(process.cwd(), 'coordinator.rinkeby.json')
@@ -102,6 +109,8 @@ async function readPassword(prompt = 'Password: ') {
     output: mutableStdout,
     terminal: true,
   })
+  rl.on('SIGINT', terminate)
+  rl.on('SIGTERM', terminate)
   const promise = new Promise(rs => {
     rl.question(prompt, (password) => {
       rs(password.trim())
@@ -118,6 +127,8 @@ async function readInput(prompt) {
     output: process.stdout,
     terminal: true,
   })
+  rl.on('SIGINT', terminate)
+  rl.on('SIGTERM', terminate)
   return await new Promise(rs => {
     rl.question(prompt, (input) => {
       rs(input.trim())
