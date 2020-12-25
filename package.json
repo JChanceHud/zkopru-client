@@ -4,9 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "npm run create-account && npm run keys && docker-compose up --build",
-    "create-account": "node scripts/create_account",
-    "keys": "sh scripts/pull_extract.sh",
+    "start": "sh ./scripts/start.sh",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
