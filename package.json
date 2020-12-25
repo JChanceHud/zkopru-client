@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "sh ./scripts/start.sh",
+    "coordinator": "docker exec -it zkopru-client_coordinator_1 node /zkopru/packages/cli/dist/apps/coordinator/cli.js --config /coordinator.rinkeby.json",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
