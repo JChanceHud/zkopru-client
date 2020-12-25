@@ -15,8 +15,10 @@ RUN go get golang.org/dl/go1.10.7
 RUN go1.10.7 download
 RUN go1.10.7 get github.com/yudai/gotty
 
+COPY ./keys /keys
 WORKDIR /
 RUN git clone -b tx-forwarding https://github.com/jchancehud/zkopru.git
+RUN mv /keys /zkopru/keys
 
 WORKDIR /zkopru
 
@@ -27,7 +29,6 @@ RUN cd packages/zk-wizard && yarn build
 
 RUN yarn build
 
-COPY ./keys /zkopru/keys
 COPY ./coordinator.rinkeby.json /
 COPY ./coordinator/start.sh /start.sh
 
