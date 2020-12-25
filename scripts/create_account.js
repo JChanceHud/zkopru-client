@@ -19,11 +19,6 @@ const Web3 = require('web3')
   }
 })()
 
-process.on('SIGINT', () => {
-  console.log('Aborting...')
-  process.exit(1)
-})
-
 async function generateEnv() {
   const emptyConfigPath = path.join(process.cwd(), 'coordinator.rinkeby.empty.json')
   const configPath = path.join(process.cwd(), 'coordinator.rinkeby.json')
