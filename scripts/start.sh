@@ -11,4 +11,4 @@ then
   node scripts/load_keys $IMAGE_NAME
 fi
 
-exec docker-compose up --build
+exec docker-compose up --build $@

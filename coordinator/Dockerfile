@@ -1,6 +1,6 @@
 FROM node:14-stretch-slim
 RUN apt-get update && \
-    apt-get install -y git make musl-dev golang-go sqlite g++ tmux python
+    apt-get install -y git make musl-dev golang-go sqlite g++ tmux python netcat
 
 RUN npm install -g @prisma/cli@2.7.1
 
