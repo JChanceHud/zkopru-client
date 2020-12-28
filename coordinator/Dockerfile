@@ -17,7 +17,7 @@ RUN go1.10.7 get github.com/yudai/gotty
 
 COPY ./keys /keys
 WORKDIR /
-RUN git clone -b tx-forwarding https://github.com/jchancehud/zkopru.git
+RUN git clone -b temp-forwarding https://github.com/jchancehud/zkopru.git
 RUN mv /keys /zkopru/keys
 
 WORKDIR /zkopru
@@ -29,7 +29,7 @@ RUN cd packages/zk-wizard && yarn build
 
 RUN yarn build
 
-COPY ./coordinator.rinkeby.json /
+COPY ./coordinator.kovan.json /
 COPY ./coordinator/start.sh /start.sh
 
 ENTRYPOINT ["/bin/sh", "/start.sh"]

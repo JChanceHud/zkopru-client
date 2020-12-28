@@ -27,8 +27,8 @@ process.on('SIGINT', terminate)
 process.on('SIGTERM', terminate)
 
 async function generateEnv() {
-  const emptyConfigPath = path.join(process.cwd(), 'coordinator.rinkeby.empty.json')
-  const configPath = path.join(process.cwd(), 'coordinator.rinkeby.json')
+  const emptyConfigPath = path.join(process.cwd(), 'coordinator.kovan.empty.json')
+  const configPath = path.join(process.cwd(), 'coordinator.kovan.json')
   try {
     const _data = fs.readFileSync(configPath)
     const data = JSON.parse(_data)
@@ -42,7 +42,7 @@ async function generateEnv() {
   const emptyData = JSON.parse(_emptyData)
   let websocket, err
   do {
-    websocket = await readInput('Rinkeby node websocket url: ')
+    websocket = await readInput('Kovan node websocket url: ')
     err = await getChainId(websocket)
     if (err) console.log(err)
   } while (err)
@@ -58,7 +58,7 @@ async function generateEnv() {
   fs.writeFileSync(configPath, final)
   console.log('')
   console.log(`Send Ether to 0x${keystore.address}`)
-  console.log('Only send Rinkeby testnet Ether, this wallet is not secure')
+  console.log('Only send Kovan testnet Ether, this wallet is not secure')
   console.log('Waiting for testnet deposit')
   await new Promise((rs, rj) => {
     const web3 = new Web3(new Web3.providers.WebsocketProvider(websocket))
@@ -87,7 +87,7 @@ async function getChainId(wsUrl) {
     const web3 = new Web3(new Web3.providers.WebsocketProvider(wsUrl))
     const chainId = await web3.eth.getChainId()
     if (+chainId !== 4) {
-      return 'Incorrect chain id, enter a Rinkeby node url'
+      return 'Incorrect chain id, enter a Kovan node url'
     }
   } catch (err) {
     console.log(err)
