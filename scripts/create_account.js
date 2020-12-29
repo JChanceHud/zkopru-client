@@ -7,10 +7,20 @@ const {
   generateKeystore,
 } = require('ethereum-keystore')
 const Web3 = require('web3')
+const crypto = require('crypto')
+const {
+  generateMnemonic,
+  mnemonicToEntropy,
+  wordlists,
+} = require('bip39')
+
+const KEYSTORE_PASSWORD = 'password'
+const ACCOUNT_NUMBER = 1
 
 ;(async () => {
   try {
-    await generateEnv()
+    const { websocket } = await generateCoordinatorEnv()
+    await generateWallet(websocket)
     process.exit(0)
   } catch (err) {
     console.log(err)
@@ -26,7 +36,72 @@ function terminate() {
 process.on('SIGINT', terminate)
 process.on('SIGTERM', terminate)
 
-async function generateEnv() {
+/**
+  mnemonic wallet generation
+**/
+async function generateWallet(websocket) {
+  const emptyConfigPath = path.join(process.cwd(), 'wallet.kovan.empty.json')
+  const configPath = path.join(process.cwd(), 'wallet.kovan.json')
+  try {
+    const _data = fs.readFileSync(configPath)
+    const data = JSON.parse(_data)
+    if (data.seedKeystore && data.password && data.websocket) {
+      console.log('Wallet detected, skipping configuration')
+      return
+    }
+  } catch (__) {}
+  const _emptyData = fs.readFileSync(emptyConfigPath)
+  const emptyData = JSON.parse(_emptyData)
+  const mnemonic = createMnemonic()
+  const wallet = exportWallet(mnemonic, KEYSTORE_PASSWORD)
+  const final = JSON.stringify({
+    seedKeystore: wallet,
+    password: KEYSTORE_PASSWORD,
+    accountNumber: ACCOUNT_NUMBER,
+    ...emptyData,
+    websocket,
+  }, null, 2)
+  fs.writeFileSync(configPath, final)
+}
+
+function createMnemonic(strength = 256, list = wordlists['english']) {
+  return generateMnemonic(strength, undefined, list)
+}
+
+function exportWallet(mnemonic, password) {
+  const entropy = mnemonicToEntropy(mnemonic)
+  const algorithm = 'aes-256-cbc'
+  const salt = crypto.randomBytes(32)
+  const iv = crypto.randomBytes(16)
+  const kdf = 'scrypt'
+  const keylen = 32
+  const kdfParams = {
+    N: 16384, // cost
+    r: 8, // block size
+    p: 1, // parallelization
+  }
+  const key = crypto.scryptSync(password, salt, keylen, kdfParams)
+  const cipher = crypto.createCipheriv(algorithm, key, iv)
+  const ciphertext =
+    cipher.update(entropy, 'binary', 'hex') + cipher.final('hex')
+  const hdwallet = {
+    ciphertext,
+    iv: iv.toString('hex'),
+    algorithm,
+    keylen,
+    kdf,
+    N: kdfParams.N,
+    r: kdfParams.r,
+    p: kdfParams.p,
+    salt: salt.toString('hex'),
+  }
+  return hdwallet
+}
+
+/**
+  Regular wallet generation
+**/
+async function generateCoordinatorEnv() {
   const emptyConfigPath = path.join(process.cwd(), 'coordinator.kovan.empty.json')
   const configPath = path.join(process.cwd(), 'coordinator.kovan.json')
   try {
@@ -35,7 +110,7 @@ async function generateEnv() {
     if (data.keystore && data.password && data.websocket) {
       // already configured
       console.log('Coordinator account detected, skipping configuration')
-      return
+      return data
     }
   } catch (__) {}
   const _emptyData = fs.readFileSync(emptyConfigPath)
@@ -46,15 +121,16 @@ async function generateEnv() {
     err = await getChainId(websocket)
     if (err) console.log(err)
   } while (err)
-  const password = await readPassword('Enter wallet password: ')
+  // const password = await readPassword('Enter wallet password: ')
 
-  const keystore = await generateKeystore(null, password)
-  const final = JSON.stringify({
+  const keystore = await generateKeystore(null, KEYSTORE_PASSWORD)
+  const finalData = {
     ...emptyData,
     websocket,
     keystore,
-    password,
-  }, null, 2)
+    password: KEYSTORE_PASSWORD,
+  }
+  const final = JSON.stringify(finalData, null, 2)
   fs.writeFileSync(configPath, final)
   console.log('')
   console.log(`Send Ether to 0x${keystore.address}`)
@@ -68,6 +144,7 @@ async function generateEnv() {
         return
       }
       const { from, to, value, gas } = (await web3.eth.getTransaction(txhash)) || {}
+      console.log(from, to, value, gas)
       if (normalizeAddr(to) === normalizeAddr(keystore.address)) {
         console.log(`${web3.utils.fromWei(value)} Eth transaction detected, continuing`)
         await new Promise(r => setTimeout(r, 1500))
@@ -75,6 +152,7 @@ async function generateEnv() {
       }
     })
   })
+  return finalData
 }
 
 function normalizeAddr(addr = '') {
