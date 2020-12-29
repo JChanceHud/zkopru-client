@@ -86,7 +86,7 @@ async function getChainId(wsUrl) {
   try {
     const web3 = new Web3(new Web3.providers.WebsocketProvider(wsUrl))
     const chainId = await web3.eth.getChainId()
-    if (+chainId !== 4) {
+    if (+chainId !== 42) {
       return 'Incorrect chain id, enter a Kovan node url'
     }
   } catch (err) {
