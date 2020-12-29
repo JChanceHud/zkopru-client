@@ -13,6 +13,16 @@ services:
     environment:
       POSTGRES_URL: postgresql://postgres:password@postgres:5432/zkopru
       POSTGRES_PASSWORD: password
+    volumes:
+      - type: bind
+        source: ./data
+        target: /zkopru/data
+      - type: bind
+        source: ./coordinator.kovan.json
+        target: /coordinator.kovan.json
+      - type: bind
+        source: ./wallet.kovan.json
+        target: /wallet.kovan.json
   postgres:
     image: postgres:13
     environment:

@@ -1,0 +1,13 @@
+{
+  "_": [],
+  "fullnode": true,
+  "develop": false,
+  "websocket": "ws://192.168.1.199:8550",
+  "coordinator": "http://localhost:8888",
+  "address": "0x475913e3e6cEf67Ac01898697AbD44c1e60ce95F",
+  "networkId": 42,
+  "chainId": 42,
+  "keys": "keys",
+  "db": "db",
+  "$0": "zk-wizard"
+}

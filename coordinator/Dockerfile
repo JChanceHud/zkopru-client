@@ -15,10 +15,9 @@ RUN go get golang.org/dl/go1.10.7
 RUN go1.10.7 download
 RUN go1.10.7 get github.com/yudai/gotty
 
-COPY ./keys /keys
+# COPY ./keys /keys
 WORKDIR /
-RUN git clone -b temp-forwarding https://github.com/jchancehud/zkopru.git
-RUN mv /keys /zkopru/keys
+RUN git clone -b tx-forwarding https://github.com/jchancehud/zkopru.git
 
 WORKDIR /zkopru
 
@@ -29,8 +28,10 @@ RUN cd packages/zk-wizard && yarn build
 
 RUN yarn build
 
-COPY ./coordinator.kovan.json /
-COPY ./wallet.kovan.json /
 COPY ./coordinator/start.sh /start.sh
+
+RUN mkdir /zkopru/data
+WORKDIR /zkopru/data
+# RUN mv /keys /zkopru/data/keys
 
 ENTRYPOINT ["/bin/sh", "/start.sh"]

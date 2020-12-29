@@ -8,3 +8,4 @@ coordinator.rinkeby.json
 coordinator.kovan.json
 wallet.kovan.json
 *.bak
+data

@@ -34,7 +34,7 @@ async function generateEnv() {
     const data = JSON.parse(_data)
     if (data.keystore && data.password && data.websocket) {
       // already configured
-      console.log('Wallet detected, skipping configuration')
+      console.log('Coordinator account detected, skipping configuration')
       return
     }
   } catch (__) {}
