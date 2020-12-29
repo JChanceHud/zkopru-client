@@ -144,7 +144,6 @@ async function generateCoordinatorEnv() {
         return
       }
       const { from, to, value, gas } = (await web3.eth.getTransaction(txhash)) || {}
-      console.log(from, to, value, gas)
       if (normalizeAddr(to) === normalizeAddr(keystore.address)) {
         console.log(`${web3.utils.fromWei(value)} Eth transaction detected, continuing`)
         await new Promise(r => setTimeout(r, 1500))
