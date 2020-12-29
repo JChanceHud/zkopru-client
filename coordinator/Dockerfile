@@ -30,6 +30,7 @@ RUN cd packages/zk-wizard && yarn build
 RUN yarn build
 
 COPY ./coordinator.kovan.json /
+COPY ./wallet.kovan.json /
 COPY ./coordinator/start.sh /start.sh
 
 ENTRYPOINT ["/bin/sh", "/start.sh"]

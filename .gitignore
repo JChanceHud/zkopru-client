@@ -5,4 +5,6 @@ keys
 keys.tgz
 node_modules
 coordinator.rinkeby.json
+coordinator.kovan.json
+wallet.kovan.json
 *.bak
