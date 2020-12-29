@@ -15,4 +15,13 @@ npm install
 npm start
 ```
 
-Once the image is done building a UI will be accessible on port `1234`.
+To stop the service use the command `npm run stop`.
+
+### Coordinator
+
+The coordinator UI can be accessed in a browser at `localhost:1234`, or by running `npm run coordinator`.
+
+### Wallet
+
+The wallet UI can be accessed by running `npm run wallet`.
+

@@ -9,4 +9,4 @@ then
   mkdir data
 fi
 
-exec docker-compose up --build $@
+exec docker-compose up --build -d $@
