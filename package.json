@@ -14,6 +14,7 @@
   "license": "GPL-3.0-or-later",
   "dependencies": {
     "bip39": "^3.0.3",
+    "chalk": "^4.1.0",
     "ethereum-keystore": "0.0.3",
     "fs-extra": "^9.0.1",
     "node-docker-api": "^1.1.22",

@@ -13,6 +13,7 @@ const {
   mnemonicToEntropy,
   wordlists,
 } = require('bip39')
+const chalk = require('chalk')
 
 const KEYSTORE_PASSWORD = 'password'
 const ACCOUNT_NUMBER = 1
@@ -124,6 +125,36 @@ async function generateCoordinatorEnv() {
   // const password = await readPassword('Enter wallet password: ')
 
   const keystore = await generateKeystore(null, KEYSTORE_PASSWORD)
+  console.log('')
+  console.log(`Send Ether to ${chalk.blue.underline(`0x${keystore.address}`)}`)
+  console.log(`Only send ${chalk.blue('Kovan')} testnet Ether, this wallet is not secure`)
+  console.log('Waiting for deposit...')
+  await new Promise((rs, rj) => {
+    const web3 = new Web3(new Web3.providers.WebsocketProvider(websocket))
+    const timer = setInterval(async () => {
+      const balance = await web3.eth.getBalance(keystore.address)
+      if (balance.toString() !== '0') {
+        clearInterval(timer)
+        console.log(`${web3.utils.fromWei(balance)} Eth transaction detected, continuing`)
+        await new Promise(r => setTimeout(r, 1500))
+        rs()
+      }
+    }, 1000)
+    web3.eth.subscribe('pendingTransactions', async (err, txhash) => {
+      if (err) {
+        clearInterval(timer)
+        rj(err)
+        return
+      }
+      const { from, to, value, gas } = (await web3.eth.getTransaction(txhash)) || {}
+      if (normalizeAddr(to) === normalizeAddr(keystore.address)) {
+        console.log(`${web3.utils.fromWei(value)} Eth transaction detected, continuing`)
+        clearInterval(timer)
+        await new Promise(r => setTimeout(r, 1500))
+        rs()
+      }
+    })
+  })
   const finalData = {
     ...emptyData,
     websocket,
@@ -132,25 +163,6 @@ async function generateCoordinatorEnv() {
   }
   const final = JSON.stringify(finalData, null, 2)
   fs.writeFileSync(configPath, final)
-  console.log('')
-  console.log(`Send Ether to 0x${keystore.address}`)
-  console.log('Only send Kovan testnet Ether, this wallet is not secure')
-  console.log('Waiting for testnet deposit')
-  await new Promise((rs, rj) => {
-    const web3 = new Web3(new Web3.providers.WebsocketProvider(websocket))
-    web3.eth.subscribe('pendingTransactions', async (err, txhash) => {
-      if (err) {
-        rj(err)
-        return
-      }
-      const { from, to, value, gas } = (await web3.eth.getTransaction(txhash)) || {}
-      if (normalizeAddr(to) === normalizeAddr(keystore.address)) {
-        console.log(`${web3.utils.fromWei(value)} Eth transaction detected, continuing`)
-        await new Promise(r => setTimeout(r, 1500))
-        rs()
-      }
-    })
-  })
   return finalData
 }
 
