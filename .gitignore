@@ -4,8 +4,9 @@
 keys
 keys.tgz
 node_modules
-coordinator.rinkeby.json
-coordinator.kovan.json
-wallet.kovan.json
+coordinator.*.json
+wallet.*.json
+!coordinator.goerli.empty.json
+!wallet.goerli.empty.json
 *.bak
 data
