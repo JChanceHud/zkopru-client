@@ -16,7 +16,7 @@ RUN go1.10.7 download
 RUN go1.10.7 get github.com/yudai/gotty
 
 WORKDIR /
-RUN git clone -b tx-forwarding https://github.com/jchancehud/zkopru.git
+RUN git clone -b coordinator-auctions https://github.com/jchancehud/zkopru.git
 
 WORKDIR /zkopru
 
