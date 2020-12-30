@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "sh ./scripts/start.sh",
-    "coordinator": "docker exec -it zkopru-client_coordinator_1 node /zkopru/packages/cli/dist/apps/coordinator/cli.js --config /coordinator.kovan.json",
-    "wallet": "docker exec -it zkopru-client_coordinator_1 node /zkopru/packages/cli/dist/apps/wallet/cli.js --config /wallet.kovan.json",
+    "coordinator": "docker exec -it zkopru-client_coordinator_1 node /zkopru/packages/cli/dist/apps/coordinator/cli.js --config /coordinator.goerli.json",
+    "wallet": "docker exec -it zkopru-client_coordinator_1 node /zkopru/packages/cli/dist/apps/wallet/cli.js --config /wallet.goerli.json",
     "stop": "docker-compose down",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

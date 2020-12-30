@@ -41,8 +41,8 @@ process.on('SIGTERM', terminate)
   mnemonic wallet generation
 **/
 async function generateWallet(websocket) {
-  const emptyConfigPath = path.join(process.cwd(), 'wallet.kovan.empty.json')
-  const configPath = path.join(process.cwd(), 'wallet.kovan.json')
+  const emptyConfigPath = path.join(process.cwd(), 'wallet.goerli.empty.json')
+  const configPath = path.join(process.cwd(), 'wallet.goerli.json')
   try {
     const _data = fs.readFileSync(configPath)
     const data = JSON.parse(_data)
@@ -103,8 +103,8 @@ function exportWallet(mnemonic, password) {
   Regular wallet generation
 **/
 async function generateCoordinatorEnv() {
-  const emptyConfigPath = path.join(process.cwd(), 'coordinator.kovan.empty.json')
-  const configPath = path.join(process.cwd(), 'coordinator.kovan.json')
+  const emptyConfigPath = path.join(process.cwd(), 'coordinator.goerli.empty.json')
+  const configPath = path.join(process.cwd(), 'coordinator.goerli.json')
   try {
     const _data = fs.readFileSync(configPath)
     const data = JSON.parse(_data)
@@ -118,7 +118,7 @@ async function generateCoordinatorEnv() {
   const emptyData = JSON.parse(_emptyData)
   let websocket, err
   do {
-    websocket = await readInput('Kovan node websocket url: ')
+    websocket = await readInput('Görli node websocket url: ')
     err = await getChainId(websocket)
     if (err) console.log(err)
   } while (err)
@@ -127,7 +127,7 @@ async function generateCoordinatorEnv() {
   const keystore = await generateKeystore(null, KEYSTORE_PASSWORD)
   console.log('')
   console.log(`Send Ether to ${chalk.blue.underline(`0x${keystore.address}`)}`)
-  console.log(`Only send ${chalk.blue('Kovan')} testnet Ether, this wallet is not secure`)
+  console.log(`Only send ${chalk.blue('Görli')} testnet Ether, this wallet is not secure`)
   console.log('Waiting for deposit...')
   await new Promise((rs, rj) => {
     const web3 = new Web3(new Web3.providers.WebsocketProvider(websocket))
@@ -175,8 +175,8 @@ async function getChainId(wsUrl) {
   try {
     const web3 = new Web3(new Web3.providers.WebsocketProvider(wsUrl))
     const chainId = await web3.eth.getChainId()
-    if (+chainId !== 42) {
-      return 'Incorrect chain id, enter a Kovan node url'
+    if (+chainId !== 5) {
+      return 'Incorrect chain id, enter a Görli node url'
     }
   } catch (err) {
     console.log(err)

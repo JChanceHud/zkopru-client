@@ -1,0 +1,33 @@
+{
+  "_": [],
+  "bootstrap": true,
+  "postgres": "postgresql://postgres:password@postgres:5432/zkopru",
+  "address": "0x54a43523AE60c2cd68C8E487Ec2bFFfE2FdE0a24",
+  "db": "db",
+  "maxBytes": 131072,
+  "priceMultiplier": 48,
+  "port": 8888,
+  "$0": "zkopru-coordinator",
+  "websocket": "ws://192.168.1.199:9546",
+  "keystore": {
+    "address": "34111e2ef75412c73e5aa2b4751c25c499f793b5",
+    "crypto": {
+      "cipher": "aes-128-ctr",
+      "ciphertext": "fce9c026e9de3f7ead5bc759f8cd4092fcfd2d0a72dbc4292152c8eeeaea1a25",
+      "cipherparams": {
+        "iv": "0403f3503779cec813274434e41209e9"
+      },
+      "mac": "ddeb9cab549959470a93fed505c8ae8b6f4e9d11b9733874f78a6b46014693e8",
+      "kdf": "pbkdf2",
+      "kdfparams": {
+        "c": 100000,
+        "dklen": 32,
+        "prf": "hmac-sha256",
+        "salt": "c0ea1dc30001cc39658a028fd6471326147acd7fed3613e4a00b24fe313b4d6c"
+      }
+    },
+    "id": "6632bca2-4cfe-43c5-9423-7fd44941308c",
+    "version": 3
+  },
+  "password": "password"
+}

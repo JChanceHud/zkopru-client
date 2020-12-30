@@ -1,0 +1,26 @@
+{
+  "seedKeystore": {
+    "ciphertext": "90dcc2d1db26800aaa6f0626a5a5a04e6154dfcf37fa7e44d9ad907e3ad55867c53c33b7fce40fc6a98226e5d426511c16a79b0c373a2ad06a091e5ace015828ce6a08b207411011b8b44eadf8f180f5",
+    "iv": "67c05b8ac6b7092c1d449222f314f151",
+    "algorithm": "aes-256-cbc",
+    "keylen": 32,
+    "kdf": "scrypt",
+    "N": 16384,
+    "r": 8,
+    "p": 1,
+    "salt": "a91e23d2dbdd64ea42110aa502f60894e29c58b5dcdd4a0ac78423ca787bccb6"
+  },
+  "password": "password",
+  "accountNumber": 1,
+  "_": [],
+  "fullnode": true,
+  "develop": false,
+  "coordinator": "http://localhost:8888",
+  "address": "0x54a43523AE60c2cd68C8E487Ec2bFFfE2FdE0a24",
+  "networkId": 42,
+  "chainId": 42,
+  "keys": "keys",
+  "db": "db",
+  "$0": "zk-wizard",
+  "websocket": "ws://192.168.1.199:9546"
+}

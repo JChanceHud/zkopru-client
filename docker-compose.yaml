@@ -15,8 +15,8 @@ services:
       POSTGRES_PASSWORD: password
     volumes:
       - ./data:/zkopru/data
-      - ./coordinator.kovan.json:/coordinator.kovan.json
-      - ./wallet.kovan.json:/wallet.kovan.json
+      - ./coordinator.goerli.json:/coordinator.goerli.json
+      - ./wallet.goerli.json:/wallet.goerli.json
   postgres:
     image: postgres:13
     environment:
