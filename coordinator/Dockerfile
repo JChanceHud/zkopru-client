@@ -16,14 +16,11 @@ RUN go1.10.7 download
 RUN go1.10.7 get github.com/yudai/gotty
 
 WORKDIR /
-RUN git clone -b tx-forwarding https://github.com/jchancehud/zkopru.git
+RUN git clone --depth 1 -b develop https://github.com/zkopru-network/zkopru.git
 
 WORKDIR /zkopru
 
 RUN yarn
-
-# zk-wizard needs to be built first
-RUN cd packages/zk-wizard && yarn build
 
 RUN yarn build
 
