@@ -2,7 +2,7 @@
   "_": [],
   "bootstrap": true,
   "postgres": "postgresql://postgres:password@postgres:5432/zkopru",
-  "address": "0xE11737109F5626f8Ca4a2DaBb956be42e171052F",
+  "address": "0xF4A46BEA80d0D21a11306DDE6cb0fFA91fF95ADd",
   "db": "db",
   "maxBytes": 131072,
   "priceMultiplier": 48,

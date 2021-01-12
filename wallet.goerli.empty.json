@@ -3,7 +3,7 @@
   "fullnode": true,
   "develop": false,
   "coordinator": "http://localhost:8888",
-  "address": "0xE11737109F5626f8Ca4a2DaBb956be42e171052F",
+  "address": "0xF4A46BEA80d0D21a11306DDE6cb0fFA91fF95ADd",
   "networkId": 42,
   "chainId": 42,
   "keys": "keys",
