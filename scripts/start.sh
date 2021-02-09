@@ -9,7 +9,7 @@ then
   mkdir data
 fi
 
-KEYS_PIN_CID=QmZWPNTt72gF7f45wDDC3DaaXnsNConr7Yid4Fde1znt3w
+KEYS_PIN_CID=QmcTuybdkDwegnNHo4wvoxg5hKBanN58TJkU7AhRhcmGDf
 if [ ! -d data/keys ]
 then
   wget "http://ipfs.rollupsync.com:8080/api/v0/get?arg=$KEYS_PIN_CID&archive=true&compress=true" -O data/keys.tar.gz
