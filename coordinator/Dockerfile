@@ -22,6 +22,9 @@ WORKDIR /zkopru
 
 RUN yarn
 
+# Temporary fix for https://github.com/trufflesuite/truffle/issues/3815
+RUN yarn add -W truffle@5.1.59
+
 #RUN yarn build
 RUN yarn build:contract && yarn build:prisma && yarn build:ts:serial
 
